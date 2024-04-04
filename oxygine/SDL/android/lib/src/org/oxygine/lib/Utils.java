@@ -62,7 +62,9 @@ public class Utils {
     public static void restartApp() {
         Intent mStartActivity = new Intent(_context, OxygineActivity.instance.getClass());
 		int mPendingIntentId = 123456;
-		PendingIntent mPendingIntent = PendingIntent.getActivity(_context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+		PendingIntent mPendingIntent = PendingIntent.getActivity(_context, mPendingIntentId,
+                mStartActivity,
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 		AlarmManager mgr = (AlarmManager)_context.getSystemService(Context.ALARM_SERVICE);
 		mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
 		System.exit(0);

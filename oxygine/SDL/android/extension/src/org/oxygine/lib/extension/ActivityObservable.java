@@ -45,6 +45,7 @@ public class ActivityObservable {
     public ActivityObserver findClass(Class c) {
         for (ActivityObserver l : _observers) {
             Class lc = l.getClass();
+            @SuppressWarnings("unchecked")
             boolean found = c.isAssignableFrom(lc);
             if (found)
                 return l;
