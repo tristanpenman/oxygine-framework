@@ -1,6 +1,5 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.1.2)
 project (OXYGINE)
-
 
 set(OX_HAVE_LIBJPEG 0)
 set(OX_HAVE_LIBPNG 0)
@@ -8,6 +7,7 @@ set(OX_HAVE_LIBCURL 0)
 set(OX_HAVE_HTTP 0)
 set(OX_USE_SDL2 1)
 
+option(OX_USE_SYSTEM_SDL "Use system SDL instead of local submodule" FALSE)
 
 find_package(OpenGL)
 
@@ -17,14 +17,17 @@ elseif (WIN32)
 	#hardcoded path to SDL2 on windows
 	set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../SDL/include)
 else(WIN32)
-	find_path(SDL2_INCLUDE_DIRS NAMES SDL2/SDL.h)
-	message(STATUS ${SDL2_INCLUDE_DIRS_FOUND})
+	if (OX_USE_SYSTEM_SDL)
+		find_path(SDL2_INCLUDE_DIRS NAMES SDL2/SDL.h)
+		message(STATUS ${SDL2_INCLUDE_DIRS_FOUND})
 
-	if (SDL2_INCLUDE_DIRS)
-		set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIRS})
-		message(STATUS "found")
+		if (SDL2_INCLUDE_DIRS)
+			set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIRS})
+			message(STATUS "found")
+		else()
+			message(FATAL_ERROR "SDL not found")
+		endif()
 	else()
-		message(STATUS "SDL not found")
 		set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../SDL/include)
 	endif()
 
