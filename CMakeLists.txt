@@ -28,6 +28,7 @@ else(WIN32)
 			message(FATAL_ERROR "SDL not found")
 		endif()
 	else()
+		add_subdirectory(../SDL build)
 		set(SDL2_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../SDL/include)
 	endif()
 
@@ -82,6 +83,9 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	set(OX_HAVE_LIBPNG 1)
 
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
+	set(OX_HAVE_LIBPNG 1)
+
 elseif(MSVC)
 
 	set(OX_HAVE_LIBJPEG 1)
