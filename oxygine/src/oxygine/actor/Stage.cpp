@@ -14,7 +14,10 @@ namespace oxygine
 {
     spStage Stage::instance;
 
-    Stage::Stage(bool autoReset) : _statUpdate(0), _clipOuter(false), _viewport(0, 0, 0, 0) //, _active(true)
+    Stage::Stage(bool autoReset)
+      : _statUpdate(0)
+      , _clipOuter(false)
+      , _viewport(0, 0, 0, 0)
     {
         spClock clock = new Clock();
         setClock(clock);

@@ -41,12 +41,12 @@ namespace oxygine
         return (int)_fixedStep;
     }
 
-    float   Clock::getFixedStepF() const
+    float Clock::getFixedStepF() const
     {
         return _fixedStep / 1000.0f;
     }
 
-    float   Clock::getLastDTF() const
+    float Clock::getLastDTF() const
     {
         return (float)(_lastDT / 1000.0f);
     }
@@ -56,12 +56,12 @@ namespace oxygine
         return (int)_lastDT;
     }
 
-    timeMS  Clock::getLastUpdateTime() const
+    timeMS Clock::getLastUpdateTime() const
     {
         return (timeMS)_lastUpdateTime;
     }
 
-    float   Clock::getLastUpdateTimeF() const
+    float Clock::getLastUpdateTimeF() const
     {
         return (float)(_lastUpdateTime / 1000.0f);
     }
@@ -100,32 +100,33 @@ namespace oxygine
     {
         timeMS time = globalTime;
         const double neg = -1;
-        if (time == neg)
+        if (time == neg) {
             time = getTimeMS();
+        }
 
-        if (_lastUpdateTime == neg)
+        if (_lastUpdateTime == neg) {
             _lastUpdateTime = time;
+        }
 
         double dt = (time - _lastUpdateTime) * _multiplier;
-        if (dt < 1 && dt > 0)
+        if (dt < 1 && dt > 0) {
             dt = 1;
+        }
 
-        if (dt > 100)
+        if (dt > 100) {
             dt = 100;
-        if (dt < 0)
+        }
+        if (dt < 0) {
             dt = 1;
+        }
 
-        if (_counter > 0)
+        if (_counter > 0) {
             dt = 0;//todo destTime == srcTime ??
+        }
 
-        //logs::messageln("dt: %x %d", this, dt);
         _destTime += dt;
-
         _lastUpdateTime = time;
         _lastDT = dt;
-
-        //if (_fixedStep > 0)
-        //  printf("ticks: %d\n", int((_destTime - _srcTime)/_fixedStep));
     }
 
     timeMS Clock::doTick()
@@ -148,7 +149,7 @@ namespace oxygine
         return (timeMS)_fixedStep;
     }
 
-    float   Clock::doTickF()
+    float Clock::doTickF()
     {
         if (_counter > 0)
             return 0;
@@ -191,12 +192,15 @@ namespace oxygine
     {
         std::stringstream stream;
         stream << "clock={time=" << getTime() << "ms";
-        if (_counter)
+        if (_counter) {
             stream << "paused=" << _counter;
-        if (_multiplier != 1.0f)
+        }
+        if (_multiplier != 1.0f) {
             stream << ", multiplier=" << _multiplier;
-        if (_fixedStep)
+        }
+        if (_fixedStep != 0.0f) {
             stream << ", fixed_step=" << _fixedStep;
+        }
         stream << "}";
         return stream.str();
     }

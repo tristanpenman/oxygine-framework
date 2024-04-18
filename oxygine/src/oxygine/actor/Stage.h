@@ -63,7 +63,7 @@ namespace oxygine
 
     protected:
 
-        timeMS _statUpdate;
+        timeMS  _statUpdate;
         bool    _clipOuter;
         Rect    _viewport;
 
@@ -75,5 +75,7 @@ namespace oxygine
         friend class DebugActor;
     };
 
-    inline const spStage& getStage() {return Stage::instance;}
+    inline const spStage& getStage() {
+        return Stage::instance;
+    }
 }
